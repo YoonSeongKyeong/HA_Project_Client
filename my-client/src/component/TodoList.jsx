@@ -7,7 +7,7 @@ class TodoList extends Component {// 이 component는 투두목록을 보여줄 
         super(props)
 
         this.state = {
-            selection: 3,//3 : 모든 투두, 1: 미완료한 투두, 2: 완료한 투두
+            selection: 3,//3 : 모든 투두(default), 1: 미완료한 투두, 2: 완료한 투두
             todos:[]
         }
         this.selectRender=this.selectRender.bind(this)
@@ -26,7 +26,7 @@ class TodoList extends Component {// 이 component는 투두목록을 보여줄 
         else if(this.state.selection === 2) {
             filterFunction = (todoObj)=>!todoObj.isCompleted; 
         }
-        else {
+        else {//3
             filterFunction = () => true;
         }
         return this.state.todos.filter(filterFunction).map(todo=><Todo todo={todo}/>);
