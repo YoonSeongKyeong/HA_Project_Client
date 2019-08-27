@@ -3,6 +3,7 @@ import Todo from './Todo'
 import { BackButton } from '../component'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
+
 const options = [
     { value: '1', label: '모든 투두' },
     { value: '2', label: '완료한 투두'},
@@ -20,6 +21,7 @@ class TodoList extends Component {// 이 component는 투두목록을 보여줄 
         }
         this.selectRender = this.selectRender.bind(this)
         this._onSelect = this._onSelect.bind(this)
+        this.handleComplete = this.handleComplete.bind(this)
     }
 
     componentDidMount() {
@@ -29,16 +31,28 @@ class TodoList extends Component {// 이 component는 투두목록을 보여줄 
 
     selectRender() {
         let filterFunction;
-        if (this.state.selection === '1') {
+        if (this.state.selection === '1') {// 모든 투두
             filterFunction = () => true;
         }
-        else if (this.state.selection === '2') {
+        else if (this.state.selection === '2') {// 완료한 투두
             filterFunction = (todoObj) => todoObj.completed;
         }
-        else {//'3'
+        else {//'3' 미완료한 투두
             filterFunction = (todoObj) => !todoObj.completed;
         }
         return this.state.todos.filter(filterFunction).map(todo => <Todo todo={todo} />);
+    }
+
+    handleComplete(id) {// Network Resource를 줄이기 위해서 POST한 뒤에 다시 GET하지 않고 클라이언트상에서 render한다.
+        const newTodos = this.state.todos.map(todoObj => {
+            if(todoObj.id===id) {
+                let newTodoObj = {...todoObj}
+                newTodoObj.completed = true;
+                return newTodoObj;
+            }
+            return todoObj;
+        })
+        this.setState({todos: newTodos})
     }
 
     _onSelect(e) {
