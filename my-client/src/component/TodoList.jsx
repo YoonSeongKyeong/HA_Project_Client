@@ -31,7 +31,8 @@ class TodoList extends Component {// 이 component는 투두목록을 보여줄 
     }
 
     getTodosFromServer() {
-        let targetUrl = 'https://koreanjson.com/todos/?userid=' + this.props.match.params.id;
+        let targetUrl = 'https://koreanjson.com/todos/?userId=' + this.props.match.params.id;
+        console.log(targetUrl)
         fetch(targetUrl).then(response => response.json()).then(result => (this.setState({ todos: result })));
     }
 
