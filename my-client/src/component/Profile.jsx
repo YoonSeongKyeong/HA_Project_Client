@@ -11,14 +11,12 @@ class Profile extends Component {
                 email:'이메일',
                 phone:'모바일'
             }
-            // ,
-            // image:""
         }
     }
 
-    componentDidMount() {
-        let targetUrl1 = 'https://koreanjson.com/users/' + this.props.match.params.id
-        fetch(targetUrl1).then(response => response.json()).then(result => (this.setState({user:result})))
+    componentDidMount() {// 프로필은 따로 로딩
+        let targetUrl = 'https://koreanjson.com/users/' + this.props.match.params.id
+        fetch(targetUrl).then(response => response.json()).then(result => (this.setState({user:result})))
     }
 
     render() {

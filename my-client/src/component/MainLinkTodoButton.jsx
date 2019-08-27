@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom'
 function MainLinkTodoButton() {
     return (
         <span>
-            <Link to={'/users'}>
-                투두
-            </Link>
+            <Link to={'/users'}>투두</Link>
         </span>
     )
 }
